@@ -1,0 +1,24 @@
+select where
+------------
+select * from Review where item_id = 3;
+
+insert
+------
+insert into Item (name, description)
+values ('a new product', 'with a new description');
+
+delete by id
+------------
+delete from Item where id = 1;
+
+update by id
+------------
+update Review
+set author = 'nobody', text = 'what item?'
+where item_id = 1;
+
+select join
+-----------
+select Item.id, Item.name, Review.text
+from Item
+inner join Review on Review.item_id=Item.id;

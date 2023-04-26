@@ -1,0 +1,83 @@
+<html>
+
+<head>
+<title>Incredibly Simple Shopping</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="/main.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="pb-2 mt-4 mb-2 border-bottom">
+	<h1><%=items[0].name%></h1>
+	<p>(<a href="/items">back</a>)</p>
+</div>
+ <!--by the nature of the database i made, if you select * from it
+where the id is some number, the selection will only be 1 item long-->
+<div class="row">
+	<div class="col-4">
+		<img class="img-fluid" src="<%=items[0].url%>">
+	</div>
+
+	<div class="col-4">
+		<div><%=items[0].description%></div>
+		<div><em>$<%=items[0].price%>.00</em></div>
+	</div>
+</div>
+
+<div class="row my-4">
+	<div class="col-8">
+		<h3>Reviews</h3>
+
+		<% if (nameerror) { %>
+		<div class="alert alert-danger" role="alert">
+			Name can't be blank.
+		</div>
+		<% } %>
+		<% if (reviewerror) { %>
+		<div class="alert alert-danger" role="alert">
+			Review can't be blank.
+		</div>
+		<% } %>
+
+		<div class="card w-100 mt-3">
+			<div class="card-body">
+				<form action="/item_view/<%=items[0].id%>" method="POST">
+					<div class="form-group">
+						<label>Add your review!</label>
+					 	<input class="form-control mb-1" placeholder="Name" name="name"/>
+					 </div>
+					 <div class="form-group">
+						<textarea class="form-control mb-1" placeholder="Review" name="review"></textarea>
+					 </div>
+					<input type="hidden" name="item_id" value="<%=items[0].id%>"/>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<% for (let i = 0; i < reviews.length; i++) { %>
+		<div class="card w-100 mt-3">
+			<div class="card-header">
+				<em><%=reviews[i].author%></em>
+			</div>
+
+			<div class="card-body">
+				<p><%=reviews[i].text%></p>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>
+
+</div>
+
+</body>
+
+</html>
